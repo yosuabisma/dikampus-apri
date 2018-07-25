@@ -14,16 +14,7 @@
           <table>
             <tr>
               <td>
-                <img v-if="products[0].fav===false" @click="products[0].fav=true;" v-bind:src="'src/assets/icon/baseline_favorite_24_px.svg'" style="width:24px;height:24px;" />
-                <img v-if="products[0].fav===true"  @click="products[0].fav=false;" v-bind:src="'src/assets/icon/baseline_favorite_on_24_px.svg'" style="width:24px;height:24px;" />
-              </td>
-              <td style="width:24px;"></td>
-              <td>
                 <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:24px;height:24px;" />
-              </td>
-              <td style="width:24px;"></td>
-              <td>
-                <img v-bind:src="'src/assets/icon/baseline_flag_24_px.svg'" style="width:24px;height:24px;" />
               </td>
             </tr>
           </table>
@@ -61,12 +52,15 @@
     <!-- END - CAROUSEL PRODUCT -->
 
     <!-- START - BUTTON PROMOTION DAN TERJUAL-->
-    <!-- <div class="btn-grp">
+    <div class="btn-grp">
       <table>
         <tr>
           <td>
-            <div class="btn-promote">
+            <div v-if="showPromote===false" @click="showPromote=true;" class="btn-promote">
               <font style="line-height:30px;">Promote</font><span><img v-bind:src="'src/assets/icon/promote.svg'" style="margin-left:4px;margin-top:-8px;height:24px;width:24px;line-height:30px;"/></span>
+            </div>
+            <div v-if="showPromote===true" class="btn-promote-outline">
+              <font>{{products[0].promoteDay}}</font>
             </div>
           </td>
           <td>
@@ -78,7 +72,7 @@
           </td>
         </tr>
       </table>
-    </div> -->
+    </div>
     <!-- END - BUTTON PROMOTION DAN TERJUAL-->
     <div class="dilihat">
       <center>
@@ -193,6 +187,7 @@
       return{
         slide: 0,
         sliding: null,
+        showPromote:false,
         products:[
           {
             id:1,
@@ -213,6 +208,7 @@
             ],
             isDelivery:true,
             fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
           }
 
         ],
@@ -319,8 +315,19 @@
     font-size:24px;
     border-radius: 4px;
   }
+  .btn-promote-outline{
+    background-color: #ffffff;
+    text-align: center;
+    color:#ff9500;
+    border:2px solid #ff9500;
+    width: 148px;
+    height: 52px;
+    padding-top: 14px;
+    font-size:16px;
+    border-radius: 4px;
+  }
   .btn-terjual{
-    background-color: #1eff3b30;
+    background-color: #ffe7e6;
     border: 1px solid #ff3b30;
     text-align: center;
     color:#ff3b30;
