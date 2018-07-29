@@ -1,179 +1,277 @@
 <template>
-  <div class="detail-page">
-    <!--NAVBAR-->
-    <div class="all-navbar-content">
-      <div class="navbar-circle2">
+  <div>
+    <div v-if="showDetail===false">
+      <!--NAVBAR ALL-->
+      <div class="all-navbar-content-all">
+        <div class="navbar-circle2-all">
+        </div>
+        <div class="navbar-circle-all">
+          <center>
+            <img v-bind:src="'src/assets/icon/outline_add_24_px.svg'" style="width:24px;height:24px;" />
+          </center>
+        </div>
+        <div class="navbar-dikampus-all">
+          <div class="navbar-content-all">
+            <table>
+              <tr>
+                <td>
+                  <img v-bind:src="'src/assets/icon/baseline_menu_24_px.svg'" style="width:24px;height:24px;" />
+                </td>
+                <td style="width:264px;"></td>
+                <td>
+                  <img v-bind:src="'src/assets/icon/ic_search.svg'" style="width:24px;height:24px;" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="navbar-circle">
-        <center>
-          <img v-bind:src="'src/assets/icon/whatsapp_logo.svg'" style="width:24px;height:24px;" />
-        </center>
-      </div>
-      <div class="navbar-dikampus">
-        <div class="navbar-content">
+
+      <div class="merchant-products">
+        <!--Back Arrow-->
+        <div class="top-nav-back-all">
+          <div class="back-btn-all">
+            <center>
+              <img v-bind:src="'src/assets/icon/shape.svg'"  class="img-arrow" />
+            </center>
+          </div>
+        </div>
+        <!-- <img v-bind:src="'src/assets/icon/shape.svg'"  class="img-arrow" v-on:click="showDetail=false" /> -->
+
+        <!--MERCHANT-->
+        <div class="profile-merchant">
+          <center>
+            <img v-bind:src="'src/assets/profile-img/'+profile" style="width:64px;height:64px;"/>
+            <h1 style="color:#232f34;font-size:20px;margin-top:12px;font-weight:bold;">{{merchantName}}</h1>
+          </center>
+          <div style="margin-top:9px;font-size:12px;color:#888888;">
+            <center>
+              <table>
+                <tr>
+                  <td><img v-bind:src="'src/assets/icon/icon_eye.svg'" style="height:16px;width:16px;" /></td>
+                  <td style="width:4px;"></td>
+                  <td>Dilihat {{kunjunganShop}} kali</td>
+                </tr>
+              </table>
+            </center>
+          </div>
+        </div>
+        <!--PRODUCT LIST FOR-->
+        <div style="margin-top:7px;margin-bottom:100px;">
           <table>
             <tr>
               <td>
-                <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:24px;height:24px;" />
+                <table>
+                  <tr v-for="prod in products" v-if="prod.id%2==1">
+                    <td style="padding-top:20px;">
+                      <div @click="select(prod.id)">
+                        <img slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
+                        <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
+                        <h1 style="font-size:14px;color:#000000;margin-top:6px;">{{prod.name}}</h1>
+                        <div style="font-size:12px;color:#888888;margin-top:6px;"><font>{{prod.penjual}}</font></div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td style="width:12px;"></td>
+              <td>
+                <table>
+                  <tr v-for="prod in products" v-if="prod.id%2==0">
+                    <td style="padding-top:20px;">
+                      <div @click="select(prod.id)">
+                        <img slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
+                        <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
+                        <h1 style="font-size:14px;color:#000000;margin-top:6px;">{{prod.name}}</h1>
+                        <div style="font-size:12px;color:#888888;margin-top:6px;"><font>{{prod.penjual}}</font></div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>
         </div>
       </div>
-    </div>
 
-    <div class="top-nav-back">
-      <div class="back-btn">
-        <center>
-          <img v-bind:src="'src/assets/icon/shape.svg'"  class="img-arrow" v-on:click="gotoPage('/')" />
-        </center>
+
+    </div>
+    <div v-if="showDetail===true" class="detail-page">
+      <!--NAVBAR-->
+      <div class="all-navbar-content">
+        <div class="navbar-circle2">
+        </div>
+        <div class="navbar-circle">
+          <center>
+            <img v-bind:src="'src/assets/icon/baseline_edit_24_px.svg'" style="width:24px;height:24px;" />
+          </center>
+        </div>
+        <div class="navbar-dikampus">
+          <div class="navbar-content">
+            <table>
+              <tr>
+                <td>
+                  <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:24px;height:24px;" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-    <!-- START - CAROUSEL PRODUCT -->
-    <div class="crousel-product-ghost" style="height:360px; width:360px;margin-top:-80px;">
-    </div>
-    <div class="carousel-product" >
-      <b-carousel id="carousel1"
-            controls
-            indicators
-            background="#ababab"
-            :interval="4000"
-            img-width="360"
-            img-height="360"
-            v-model="slide"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-        >
-          <b-carousel-slide v-for="pho in products[0].photos">
-            <img slot="img" v-bind:src="'src/assets/product-img/'+pho.img" width="360px" height="360px"/>
-          </b-carousel-slide>
-      </b-carousel>
-    </div>
-    <!-- END - CAROUSEL PRODUCT -->
 
-    <!-- START - BUTTON PROMOTION DAN TERJUAL-->
-    <div class="btn-grp">
-      <table>
-        <tr>
-          <td>
-            <div v-if="showPromote===false" @click="showPromote=true;" class="btn-promote">
-              <font style="line-height:30px;">Promote</font><span><img v-bind:src="'src/assets/icon/promote.svg'" style="margin-left:4px;margin-top:-8px;height:24px;width:24px;line-height:30px;"/></span>
-            </div>
-            <div v-if="showPromote===true" class="btn-promote-outline">
-              <font>{{products[0].promoteDay}}</font>
-            </div>
-          </td>
-          <td>
-            <div style="margin-left:16px;">
-              <div class="btn-terjual">
-                Terjual
-              </div>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!-- END - BUTTON PROMOTION DAN TERJUAL-->
-    <div class="dilihat">
-      <center>
+      <div class="top-nav-back">
+        <div class="back-btn">
+          <center>
+            <img v-bind:src="'src/assets/icon/shape.svg'"  class="img-arrow" v-on:click="showDetail=false" />
+          </center>
+        </div>
+      </div>
+      <!-- START - CAROUSEL PRODUCT -->
+      <div class="crousel-product-ghost" style="height:360px; width:360px;margin-top:-80px;">
+      </div>
+      <div class="carousel-product" >
+        <b-carousel id="carousel1"
+              controls
+              indicators
+              background="#ababab"
+              :interval="4000"
+              img-width="360"
+              img-height="360"
+              v-model="slide"
+              @sliding-start="onSlideStart"
+              @sliding-end="onSlideEnd"
+          >
+            <b-carousel-slide v-for="pho in products[selected].photos">
+              <img slot="img" v-bind:src="'src/assets/product-img/'+pho.img" width="360px" height="360px"/>
+            </b-carousel-slide>
+        </b-carousel>
+      </div>
+      <!-- END - CAROUSEL PRODUCT -->
+
+      <!-- START - BUTTON PROMOTION DAN TERJUAL-->
+      <div class="btn-grp">
         <table>
           <tr>
-            <td><img v-bind:src="'src/assets/icon/icon_eye.svg'" style="height:16px;width:16px;" /></td>
-            <td style="width:4px;"></td>
-            <td>Dilihat {{products[0].countLihat}} kali</td>
+            <td>
+              <div v-if="showPromote===false" @click="showPromote=true;" class="btn-promote">
+                <font style="line-height:30px;">Promote</font><span><img v-bind:src="'src/assets/icon/promote.svg'" style="margin-left:4px;margin-top:-8px;height:24px;width:24px;line-height:30px;"/></span>
+              </div>
+              <div v-if="showPromote===true" class="btn-promote-outline">
+                <font>{{products[selected].promoteDay}}</font>
+              </div>
+            </td>
+            <td>
+              <div style="margin-left:16px;">
+                <div class="btn-terjual">
+                  Terjual
+                </div>
+              </div>
+            </td>
           </tr>
         </table>
-      </center>
-    </div>
-    <!--START - PRODUCT-->
-    <h1 class="prod-nm">{{products[0].name}}</h1>
-    <h1 class="prod-sell">{{products[0].penjual}}</h1>
-    <h1 class="prod-prc">Rp {{(products[0].harga).toLocaleString('id-ID')}}</h1>
-    <!--END - PRODUCT-->
-    <!--START - KATEGORI PRODUCT-->
-    <div class="category">
-      <!--Garis Tipis-->
-      <div class="thin-line"></div>
-      <h1 style="color:#222222;font-size:16px;font-weight:bold;">Kategori Produk</h1>
-      <table>
-        <tr>
-          <td>
-            <div class="cat-produk">{{products[0].kategori}}</div>
-          </td>
-          <td style="width:8px;"></td>
-          <td>
-            <div class="cond-produk">{{products[0].kondisi}}</div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!--END - KATEGORI PRODUCT-->
-    <!--START - DESC PRODUCT-->
-    <div class="description">
-      <!--Garis Tipis-->
-      <div class="thin-line"></div>
-      <h1 style="color:#222222;font-size:16px;font-weight:bold;">Deskripsi Produk</h1>
-      <p style="margin-top:8px;font-size:13px;color:#222222;">
-        {{products[0].description}}
-      </p>
-    </div>
-    <!--END - DESC PRODUCT-->
-    <!--START - KIRIM PRODUCT-->
-    <div class="ship">
-      <!--Garis Tipis-->
-      <div class="thin-line"></div>
-      <h1 style="color:#222222;font-size:16px;font-weight:bold;">Pilihan Pengiriman Tersedia</h1>
-      <table>
-        <tr>
-          <td>
-            <div v-if="products[0].isMeetup[0].boolean===false" class="pengiriman-btn gray">Meetup</div>
-            <div v-if="products[0].isMeetup[0].boolean===true" class="pengiriman-btn green">Meetup</div>
-          </td>
-          <td style="width:8px;"></td>
-          <td>
-            <div v-if="products[0].isDelivery===false" class="pengiriman-btn gray">Delivery</div>
-            <div v-if="products[0].isDelivery===true" class="pengiriman-btn green">Delivery</div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!--END - KIRIM PRODUCT-->
-    <!--START - LOKASI PRODUCT-->
-    <div class="desc-loc">
-      <!--Garis Tipis-->
-      <div class="thin-line"></div>
-      <h1 style="color:#222222;font-size:16px;font-weight:bold;margin-bottom:12px;">Lokasi Meetup</h1>
-      <table>
-        <tr v-if="products[0].isMeetup[0].boolean===true">
-          <td>
-            <img v-bind:src="'src/assets/icon/baseline_location_on_24_px.svg'" width="24px" height="24px"/>
-          </td>
-          <td style="width:12px;"></td>
-          <td>
-            <div style="font-size:13px;color:#222222;">
-              {{products[0].isMeetup[0].alamat}}
-            </div>
-          </td>
-        </tr>
-        <tr v-if="products[0].isMeetup[0].boolean===true">
-          <h1 style="margin-bottom:33px;"></h1>
-        </tr>
-        <tr v-if="products[0].isDelivery===true">
-          <td>
-            <img v-bind:src="'src/assets/icon/baseline_local_shipping_24_px.svg'" width="24px" height="24px"/>
-          </td>
-          <td style="width:12px;"></td>
-          <td>
-            <div style="font-size:13px;color:#222222;">
-              Penjual menyediakan pengiriman ke alamat kamu
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <!--END - LOKASI PRODUCT-->
+      </div>
+      <!-- END - BUTTON PROMOTION DAN TERJUAL-->
+      <div class="dilihat">
+        <center>
+          <table>
+            <tr>
+              <td><img v-bind:src="'src/assets/icon/icon_eye.svg'" style="height:16px;width:16px;" /></td>
+              <td style="width:4px;"></td>
+              <td>Dilihat {{products[selected].countLihat}} kali</td>
+            </tr>
+          </table>
+        </center>
+      </div>
+      <!--START - PRODUCT-->
+      <h1 class="prod-nm">{{products[selected].name}}</h1>
+      <h1 class="prod-sell">{{products[selected].penjual}}</h1>
+      <h1 class="prod-prc">Rp {{(products[selected].harga).toLocaleString('id-ID')}}</h1>
+      <!--END - PRODUCT-->
+      <!--START - KATEGORI PRODUCT-->
+      <div class="category">
+        <!--Garis Tipis-->
+        <div class="thin-line"></div>
+        <h1 style="color:#222222;font-size:16px;font-weight:bold;">Kategori Produk</h1>
+        <table>
+          <tr>
+            <td>
+              <div class="cat-produk">{{products[selected].kategori}}</div>
+            </td>
+            <td style="width:8px;"></td>
+            <td>
+              <div class="cond-produk">{{products[selected].kondisi}}</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--END - KATEGORI PRODUCT-->
+      <!--START - DESC PRODUCT-->
+      <div class="description">
+        <!--Garis Tipis-->
+        <div class="thin-line"></div>
+        <h1 style="color:#222222;font-size:16px;font-weight:bold;">Deskripsi Produk</h1>
+        <p style="margin-top:8px;font-size:13px;color:#222222;">
+          {{products[selected].description}}
+        </p>
+      </div>
+      <!--END - DESC PRODUCT-->
+      <!--START - KIRIM PRODUCT-->
+      <div class="ship">
+        <!--Garis Tipis-->
+        <div class="thin-line"></div>
+        <h1 style="color:#222222;font-size:16px;font-weight:bold;">Pilihan Pengiriman Tersedia</h1>
+        <table>
+          <tr>
+            <td>
+              <div v-if="products[selected].isMeetup[0].boolean===false" class="pengiriman-btn gray">Meetup</div>
+              <div v-if="products[selected].isMeetup[0].boolean===true" class="pengiriman-btn green">Meetup</div>
+            </td>
+            <td style="width:8px;"></td>
+            <td>
+              <div v-if="products[selected].isDelivery===false" class="pengiriman-btn gray">Delivery</div>
+              <div v-if="products[selected].isDelivery===true" class="pengiriman-btn green">Delivery</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--END - KIRIM PRODUCT-->
+      <!--START - LOKASI PRODUCT-->
+      <div class="desc-loc">
+        <!--Garis Tipis-->
+        <div class="thin-line"></div>
+        <h1 style="color:#222222;font-size:16px;font-weight:bold;margin-bottom:12px;">Lokasi Meetup</h1>
+        <table>
+          <tr v-if="products[selected].isMeetup[0].boolean===true">
+            <td>
+              <img v-bind:src="'src/assets/icon/baseline_location_on_24_px.svg'" width="24px" height="24px"/>
+            </td>
+            <td style="width:12px;"></td>
+            <td>
+              <div style="font-size:13px;color:#222222;">
+                {{products[selected].isMeetup[0].alamat}}
+              </div>
+            </td>
+          </tr>
+          <tr v-if="products[selected].isMeetup[0].boolean===true">
+            <h1 style="margin-bottom:33px;"></h1>
+          </tr>
+          <tr v-if="products[selected].isDelivery===true">
+            <td>
+              <img v-bind:src="'src/assets/icon/baseline_local_shipping_24_px.svg'" width="24px" height="24px"/>
+            </td>
+            <td style="width:12px;"></td>
+            <td>
+              <div style="font-size:13px;color:#222222;">
+                Penjual menyediakan pengiriman ke alamat kamu
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--END - LOKASI PRODUCT-->
 
 
+    </div>
   </div>
 </template>
 <script>
@@ -188,6 +286,11 @@
         slide: 0,
         sliding: null,
         showPromote:false,
+        selected:null,
+        showDetail:false,
+        profile:"profile_image.svg",
+        merchantName:"Dikampus Shop",
+        kunjunganShop:2321,
         products:[
           {
             id:1,
@@ -209,7 +312,112 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
-          }
+          },
+          {
+            id:2,
+            name:"Nike Air Huarache Drift Breathe Running Shoes",
+            description:"Vintage sneakers desain colorblock. Warna biru Mesh upper untuk breathability Foam midsole dengan Air-Sole cushioning Rubber outsole untuk daya tahan dan traksi Tali depan Almond toe",
+            photos:[
+              {img:"nike.svg"},
+              {img:"nike.svg"},
+              {img:"nike.svg"}
+            ],
+            countLihat:2321,
+            kategori:"Sepatu",
+            kondisi:"Baru",
+            penjual:"Dikampus Shoes",
+            harga:1799000,
+            isMeetup:[
+              {boolean:true, alamat:"Jalan Sukabirus no D38, Gang depan Mesjid Istiqomah Sukabirus, Kosan Pak Minto"}
+            ],
+            isDelivery:true,
+            fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
+          },
+          {
+            id:3,
+            name:"Nike Air Huarache Drift Breathe Running Shoes",
+            description:"Vintage sneakers desain colorblock. Warna biru Mesh upper untuk breathability Foam midsole dengan Air-Sole cushioning Rubber outsole untuk daya tahan dan traksi Tali depan Almond toe",
+            photos:[
+              {img:"nike.svg"},
+              {img:"nike.svg"},
+              {img:"nike.svg"}
+            ],
+            countLihat:2321,
+            kategori:"Sepatu",
+            kondisi:"Baru",
+            penjual:"Dikampus Shoes",
+            harga:1799000,
+            isMeetup:[
+              {boolean:true, alamat:"Jalan Sukabirus no D38, Gang depan Mesjid Istiqomah Sukabirus, Kosan Pak Minto"}
+            ],
+            isDelivery:true,
+            fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
+          },
+          {
+            id:4,
+            name:"Nike Air Huarache Drift Breathe Running Shoes",
+            description:"Vintage sneakers desain colorblock. Warna biru Mesh upper untuk breathability Foam midsole dengan Air-Sole cushioning Rubber outsole untuk daya tahan dan traksi Tali depan Almond toe",
+            photos:[
+              {img:"nike.svg"},
+              {img:"nike.svg"},
+              {img:"nike.svg"}
+            ],
+            countLihat:2321,
+            kategori:"Sepatu",
+            kondisi:"Baru",
+            penjual:"Dikampus Shoes",
+            harga:1799000,
+            isMeetup:[
+              {boolean:true, alamat:"Jalan Sukabirus no D38, Gang depan Mesjid Istiqomah Sukabirus, Kosan Pak Minto"}
+            ],
+            isDelivery:true,
+            fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
+          },
+          {
+            id:5,
+            name:"Nike Air Huarache Drift Breathe Running Shoes",
+            description:"Vintage sneakers desain colorblock. Warna biru Mesh upper untuk breathability Foam midsole dengan Air-Sole cushioning Rubber outsole untuk daya tahan dan traksi Tali depan Almond toe",
+            photos:[
+              {img:"nike.svg"},
+              {img:"nike.svg"},
+              {img:"nike.svg"}
+            ],
+            countLihat:2321,
+            kategori:"Sepatu",
+            kondisi:"Baru",
+            penjual:"Dikampus Shoes",
+            harga:1799000,
+            isMeetup:[
+              {boolean:true, alamat:"Jalan Sukabirus no D38, Gang depan Mesjid Istiqomah Sukabirus, Kosan Pak Minto"}
+            ],
+            isDelivery:true,
+            fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
+          },
+          {
+            id:6,
+            name:"Nike Air Huarache Drift Breathe Running Shoes",
+            description:"Vintage sneakers desain colorblock. Warna biru Mesh upper untuk breathability Foam midsole dengan Air-Sole cushioning Rubber outsole untuk daya tahan dan traksi Tali depan Almond toe",
+            photos:[
+              {img:"nike.svg"},
+              {img:"nike.svg"},
+              {img:"nike.svg"}
+            ],
+            countLihat:2321,
+            kategori:"Sepatu",
+            kondisi:"Baru",
+            penjual:"Dikampus Shoes",
+            harga:1799000,
+            isMeetup:[
+              {boolean:true, alamat:"Jalan Sukabirus no D38, Gang depan Mesjid Istiqomah Sukabirus, Kosan Pak Minto"}
+            ],
+            isDelivery:true,
+            fav:true,
+            promoteDay:"6 Hari 21 : 02 : 21",
+          },
 
         ],
       }
@@ -227,6 +435,10 @@
       },
       onSlideEnd (slide) {
         this.sliding = false
+      },
+      select(id){
+        this.selected=id-1;
+        this.showDetail=true;
       }
     },
     computed:{
@@ -237,7 +449,50 @@
   }
 </script>
 <style>
-  /*NAVBAR*/
+  /*NAVBAR ALL*/
+  .navbar-circle2-all{
+    background-color: none;
+    border-radius: 100%;
+    height:56px;
+    width:56px;
+    margin-left: 152px;
+  }
+  .navbar-circle-all{
+    background-color: #00d54d;
+    border-radius: 100%;
+    height:56px;
+    width:56px;
+    margin-left: 152px;
+    position: absolute;
+    padding: 16px;
+    z-index: 1;
+    bottom:27px;
+  }
+  .all-navbar-content-all{
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+  }
+  .navbar-dikampus-all{
+    background-image: url('navbar/subtract-center.svg');
+    height:83px;
+    background-repeat: no-repeat;
+    width: 360px;
+    margin-bottom: -27px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 17px;
+    padding-bottom: 15px;
+  }
+  .merchant-products{
+    padding:24px;
+  }
+  .profile-merchant{
+    margin-top: 26px;
+  }
+
+
+  /*NAVBAR DETAIL*/
   .navbar-circle2{
     background-color: none;
     border-radius: 100%;
@@ -279,12 +534,23 @@
   .right{
     float:right;
   }
+  .top-nav-back-all{
+  }
   .top-nav-back{
     padding:24px;
   }
   .arrow{
     height: 16px;
     width: 16px;
+  }
+  .back-btn-all{
+    background-color: #ffffff;
+    /* box-shadow:3px 3px 3px #c0c0c0; */
+    height: 32px;
+    width: 32px;
+    padding:2px 2px;
+    border-radius: 100%;
+    /* border: 1px solid black; */
   }
   .back-btn{
     background-color: #ffffff;
