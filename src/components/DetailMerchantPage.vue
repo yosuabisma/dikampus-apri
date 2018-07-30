@@ -65,7 +65,12 @@
                   <tr v-for="prod in products" v-if="prod.id%2==1">
                     <td style="padding-top:20px;">
                       <div @click="select(prod.id)">
-                        <img slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
+                        <div v-if="prod.isSold===true" style="height:170px;width:150px;font-size:16px;color:#ffffff;background-size: 150px 170px;background-repeat:no-repeat;-webkit-filter: brightness(40%);filter: brightness(40%);" v-bind:style="{ backgroundImage: 'url(src/assets/product-img/' + prod.photos[0].img + ')' }">
+                          <div style="-webkit-filter:brightness(100%);filter:brightness(100%);text-align:center;padding-top:75px;">
+                            <font style="font-size:20px;color:white;">SOLD</font>
+                          </div>
+                        </div>
+                        <img v-if="prod.isSold===false" slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
                         <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
                         <h1 style="font-size:14px;color:#000000;margin-top:6px;">{{prod.name}}</h1>
                         <div style="font-size:12px;color:#888888;margin-top:6px;"><font>{{prod.penjual}}</font></div>
@@ -80,7 +85,12 @@
                   <tr v-for="prod in products" v-if="prod.id%2==0">
                     <td style="padding-top:20px;">
                       <div @click="select(prod.id)">
-                        <img slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
+                        <div v-if="prod.isSold===true" style="height:170px;width:150px;font-size:16px;color:#ffffff;background-size: 150px 170px;background-repeat:no-repeat;-webkit-filter: brightness(40%);filter: brightness(40%);" v-bind:style="{ backgroundImage: 'url(src/assets/product-img/' + prod.photos[0].img + ')' }">
+                          <div style="-webkit-filter:brightness(100%);filter:brightness(100%);text-align:center;padding-top:75px;">
+                            <font style="font-size:20px;color:white;">SOLD</font>
+                          </div>
+                        </div>
+                        <img v-if="prod.isSold===false" slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
                         <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
                         <h1 style="font-size:14px;color:#000000;margin-top:6px;">{{prod.name}}</h1>
                         <div style="font-size:12px;color:#888888;margin-top:6px;"><font>{{prod.penjual}}</font></div>
@@ -96,6 +106,8 @@
 
 
     </div>
+
+    <!--SHOW DETAIL-->
     <div v-if="showDetail===true" class="detail-page">
       <!--NAVBAR-->
       <div class="all-navbar-content">
@@ -162,7 +174,7 @@
             </td>
             <td>
               <div style="margin-left:16px;">
-                <div class="btn-terjual">
+                <div class="btn-terjual" @click="terjual(selected)">
                   Terjual
                 </div>
               </div>
@@ -312,6 +324,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:true,
           },
           {
             id:2,
@@ -333,6 +346,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:false,
           },
           {
             id:3,
@@ -354,6 +368,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:false,
           },
           {
             id:4,
@@ -375,6 +390,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:false,
           },
           {
             id:5,
@@ -396,6 +412,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:false,
           },
           {
             id:6,
@@ -417,6 +434,7 @@
             isDelivery:true,
             fav:true,
             promoteDay:"6 Hari 21 : 02 : 21",
+            isSold:false,
           },
 
         ],
@@ -439,6 +457,10 @@
       select(id){
         this.selected=id-1;
         this.showDetail=true;
+      },
+      terjual(selected){
+        this.products[selected].isSold=true;
+        this.showDetail=false;
       }
     },
     computed:{
