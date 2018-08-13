@@ -158,12 +158,13 @@
 }
 /*SLIDER*/
 .slide-main{
-  width:336px;
-  max-width:336px;
+  width:360px;
+  max-width:360px;
   overflow:auto;
   margin-top:34px;
   padding:8px;
-  box-shadow: 0 0 60px 10px #1a222222;
+  box-shadow: 0 4px 60px 24px #1a222222;
+  margin-left: -24px;
 }
 .slide-box{
   width:124px;
@@ -179,9 +180,10 @@
 /*PROMO SLIDE*/
 .promo-slide{
   padding-top:16px;
-  width:336px;
-  max-width:336px;
+  width:360px;
+  max-width:360px;
   overflow:auto;
+  margin-left: -24px;
 }
 .promo-slide-box{
   width:282px;
