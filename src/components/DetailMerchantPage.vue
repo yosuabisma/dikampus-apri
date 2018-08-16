@@ -7,7 +7,7 @@
         </div>
         <div class="navbar-circle-all">
           <center>
-            <img v-bind:src="'src/assets/icon/outline_add_24_px.svg'" style="width:24px;height:24px;" />
+            <img v-bind:src="'src/assets/icon/outline_add_24_px.svg'" style="width:14px;height:14px;" />
           </center>
         </div>
         <div class="navbar-dikampus-all">
@@ -15,11 +15,11 @@
             <table>
               <tr>
                 <td>
-                  <img v-bind:src="'src/assets/icon/baseline_menu_24_px.svg'" style="width:24px;height:24px;" />
+                  <img v-bind:src="'src/assets/icon/baseline_menu_24_px.svg'" style="width:18px;height:12px;" />
                 </td>
                 <td style="width:264px;"></td>
                 <td>
-                  <img v-bind:src="'src/assets/icon/ic_search.svg'" style="width:24px;height:24px;" />
+                  <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:17px;height:19px;" />
                 </td>
               </tr>
             </table>
@@ -65,14 +65,9 @@
                   <tr v-for="prod in products" v-if="prod.id%2==1">
                     <td style="padding-top:20px;">
                       <div @click="select(prod.id)">
-                        <!-- <div v-if="prod.isSold===true" style="font-size:16px;color:#ffffff;background-size: 150px 170px;background-repeat:no-repeat;-webkit-filter: brightness(40%);filter: brightness(40%);" v-bind:style="{ backgroundImage: 'url(src/assets/product-img/' + prod.photos[0].img + ')' }">
-                          <div style="height:170px;width:150px;text-align:center;padding-top:85px;">
-                            <font style="font-size:20px;color:#ffffff;">SOLD</font>
-                          </div>
-                        </div> -->
                         <div v-if="prod.isSold===true" style="position: relative;z-index:-1;width:150px;height:170px;">
                           <img v-bind:src="'src/assets/product-img/'+prod.photos[0].img" height="170px" width="150px" style="position:relative;"/>
-                          <img v-bind:src="'src/assets/icon/sold.png'" style="position:absolute;right:0px;" height="170px" width="150px"/>
+                          <img v-bind:src="'src/assets/icon/sold.png'" style="position:absolute;right:0px;margin-top:-170px;" height="170px" width="150px"/>
                         </div>
                         <img v-if="prod.isSold===false" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
                         <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
@@ -89,14 +84,9 @@
                   <tr v-for="prod in products" v-if="prod.id%2==0">
                     <td style="padding-top:20px;">
                       <div @click="select(prod.id)">
-                        <!-- <div v-if="prod.isSold===true" style="height:170px;width:150px;font-size:16px;color:#ffffff;background-size: 150px 170px;background-repeat:no-repeat;-webkit-filter: brightness(40%);filter: brightness(40%);" v-bind:style="{ backgroundImage: 'url(src/assets/product-img/' + prod.photos[0].img + ')' }">
-                          <div style="-webkit-filter:brightness(100%);filter:brightness(100%);text-align:center;padding-top:75px;">
-                            <font style="font-size:20px;color:white;">SOLD</font>
-                          </div>
-                        </div> -->
                         <div v-if="prod.isSold===true" style="position: relative;z-index:-1;width:150px;height:170px;">
                           <img v-bind:src="'src/assets/product-img/'+prod.photos[0].img" height="170px" width="150px" style="position:relative;"/>
-                          <img v-bind:src="'src/assets/icon/sold.png'" style="position:absolute;right:0px;" height="170px" width="150px"/>
+                          <img v-bind:src="'src/assets/icon/sold.png'" style="position:absolute;right:0px;margin-top:-170px;" height="170px" width="150px"/>
                         </div>
                         <img v-if="prod.isSold===false" slot="img" v-bind:src="'src/assets/product-img/'+prod.photos[0].img" width="150px" height="170px"/>
                         <h1 style="font-size:16px;font-weight:bold;color:#222222;margin-top:12px;">Rp {{(prod.harga).toLocaleString('id-ID')}}</h1>
@@ -123,7 +113,7 @@
         </div>
         <div class="navbar-circle">
           <center>
-            <img v-bind:src="'src/assets/icon/baseline_edit_24_px.svg'" style="width:24px;height:24px;" />
+            <img v-bind:src="'src/assets/icon/baseline_edit_24_px.svg'" style="width:18px;height:18px;" />
           </center>
         </div>
         <div class="navbar-dikampus">
@@ -131,7 +121,7 @@
             <table>
               <tr>
                 <td>
-                  <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:24px;height:24px;" />
+                  <img v-bind:src="'src/assets/icon/baseline_share_24_px.svg'" style="width:17px;height:19px;" />
                 </td>
               </tr>
             </table>
