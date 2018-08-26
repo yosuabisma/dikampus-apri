@@ -5,6 +5,7 @@ import Category from './components/Category.vue';
 import Login from './components/LoginPage.vue';
 import Register from './components/RegisterPage.vue';
 import RegisterEmail from './components/RegisterEmailPage.vue';
+import UploadJualan from './components/UploadJualan.vue';
 
 export default [
   {path: '/', component: MainPage},
@@ -13,5 +14,6 @@ export default [
   {path: '/category', component: Category},
   {path: '/login', component: Login},
   {path: '/register', component: Register},
-  {path: '/register-email', component: RegisterEmail}
+  {path: '/register-email', component: RegisterEmail},
+  {path: '/upload-jualan', component: UploadJualan},
 ]
