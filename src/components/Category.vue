@@ -1,9 +1,9 @@
 <template>
   <div class="category-page">
-    <div v-if="categoryChosen===true" class="category-options">
+    <div v-if="categoryChosen===false" class="category-options">
       <div class="header">
   			<h1>Kategori</h1>
-        <img v-bind:src="'src/assets/icon/baseline_close_24_px.svg'" />
+        <img class="x-button" v-bind:src="'src/assets/icon/baseline_close_24_px.svg'" />
   		</div>
       <!-- <div class="category-list">
         <div class="category" v-on:click="subCategoryChosen=!subCategoryChosen">
@@ -18,8 +18,8 @@
           </div>
         </div>
       </div> -->
-      <div class="category-list" v-for="category in categories">
-        <div class="category" v-on:click="category.isActive=!category.isActive">
+      <div class="category-list">
+        <div class="category"  v-for="category in categories" v-on:click="category.isActive=!category.isActive">
           <b>{{ category.name }}</b>
           <div class="sub-category-list" v-if="category.isActive===true">
             <div class="sub-category" v-for="subCategory in category.subCategories" v-on:click.prevent.stop="subCategory.isActive=!subCategory.isActive" v-bind:class="{ 'hovered' : subCategory.isActive }">
@@ -27,16 +27,47 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <div v-else class="category-results">
-
+      <div class="header">
+        <img class="back-button" v-bind:src="'src/assets/icon/outline_arrow_back_24_px.svg'" /><br><br>
+        <h1>Sepatu</h1>
+  		</div>
+      <div class="catalog-container">
+        <div class="filter">
+          <div class="filter-list" v-for="filter in filters">
+            <p>{{ filter }}</p>
+          </div>
+        </div>
+        <div class="catalog-list">
+          <!-- <v-container grid-list-md>
+            <v-layout row wrap>
+              <v-flex md6 v-for="catalog in catalogs"> -->
+                <div class="catalog" v-for="catalog in catalogs">
+                  <center>
+                    <img v-bind:src="'src/assets/product-img/product.png'" />
+                  </center>
+                  <b class="product-price">Rp {{catalog.price}}</b><br>
+                  <p class="product-name">{{catalog.name}}</p>
+                  <p class="product-seller">{{catalog.seller}}</p>
+                </div>
+              <!-- </v-flex>
+            </v-layout>
+          </v-container> -->
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+  import Vuetify from 'vuetify';
+  import VGrid from 'vuetify';
+  // import VContainer from 'vuetify';
+  // import VLayout from 'vuetify';
+  // import VFlex from 'vuetify';
+
   export default {
     data() {
       return {
@@ -131,8 +162,48 @@
               }
             ]
           }
+        ],
+        filters: ['Sneakers', 'Sepatu Futsal', 'Sepatu Formal', 'Sepatu Sendal', 'Sendal'],
+        catalogs: [
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          },
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          },
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          },
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          },
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          },
+          {
+            name: 'Nike Air Huarache Drift Breathe Running Shoes',
+            price: '1.799.000',
+            seller: 'Dikampus Shoes'
+          }
         ]
       }
+    },
+    components: {
+      Vuetify,
+      VGrid
+     // 'v-container' : VContainer,
+     //  'v-layout': VLayout,
+     //  'v-flex': VFlex
     }
   }
 </script>
@@ -141,7 +212,7 @@
   .header {
     text-align: center;
     padding: 17px 24px;
-    height: 64px;
+    height: 108px;
     /* display: flex; */
     /* align-items: baseline; */
     border-bottom: 1px solid #dddddd;
@@ -150,10 +221,19 @@
     font-size: 30px;
     font-weight: 900;
     float: left;
+    display: inline;
   }
-  .header img {
+  .header .x-button {
     float: right;
     margin-top: 10px;
+  }
+  .header .back-button {
+    float: left;
+    /* margin-top: 10px; */
+  }
+  .category-list {
+    height: 596px;
+    overflow: auto;
   }
   .category {
     padding: 18px 14px 18px 14px;
@@ -180,7 +260,46 @@
     color: #00d54d;
     background-color: #2e00d54d;
   }
-  .sub-category-list .sub-category p {
+  .sub-category p {
+    display: inline-block;
+  }
+  .catalog-container {
+    height: 532px;
+  }
+  .filter {
+    width: 360px;
+    height: 10%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .filter-list {
+    /* padding: 6px 8px ; */
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: #ececec;
+    border-radius: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* margin-top: 10px; */
+    width: max-content;
+    height: 26px;
+    clear: none;
+    display: inline-block;
+  }
+  .catalog-list {
+    height: 90%;
+    padding: 26px 24px 26px 24px;
+    overflow-y: auto;
+  }
+  .catalog {
+    height: 264px;
+    width: 145px;
+    margin-left: 3px;
+    margin-right: 3px;
+    clear: none;
     display: inline-block;
   }
 </style>
