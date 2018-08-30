@@ -21,8 +21,8 @@
       <div class="category-list">
         <div class="category"  v-for="category in categories" v-on:click="category.isActive=!category.isActive">
           <b>{{ category.name }}</b>
-          <div class="sub-category-list" v-if="category.isActive===true">
-            <div class="sub-category" v-for="subCategory in category.subCategories" v-on:click.prevent.stop="subCategory.isActive=!subCategory.isActive" v-bind:class="{ 'hovered' : subCategory.isActive }">
+          <div class="sub-category-list" v-if="category.isActive===true" >
+            <div class="sub-category" v-for="subCategory in category.subCategories" v-on:click="categoryChosen=true"" v-bind:class="{ 'hovered' : subCategory.isActive }">
               <p>{{ subCategory.name }}</p>
             </div>
           </div>
@@ -31,7 +31,7 @@
     </div>
     <div v-else class="category-results">
       <div class="header">
-        <img class="back-button" v-bind:src="'src/assets/icon/outline_arrow_back_24_px.svg'" /><br><br>
+        <img class="back-button" v-bind:src="'src/assets/icon/outline_arrow_back_24_px.svg'" v-on:click="categoryChosen=false"/><br><br>
         <h1>Sepatu</h1>
   		</div>
       <div class="catalog-container">
