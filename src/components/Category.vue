@@ -22,7 +22,7 @@
         <div class="category"  v-for="category in categories" v-on:click="category.isActive=!category.isActive">
           <b>{{ category.name }}</b>
           <div class="sub-category-list" v-if="category.isActive===true" >
-            <div class="sub-category" v-for="subCategory in category.subCategories" v-on:click="categoryChosen=true"" v-bind:class="{ 'hovered' : subCategory.isActive }">
+            <div class="sub-category" v-for="subCategory in category.subCategories" v-on:click="categoryChosen=true" v-bind:class="{ 'hovered' : subCategory.isActive }">
               <p>{{ subCategory.name }}</p>
             </div>
           </div>
@@ -44,11 +44,12 @@
           <!-- <v-container grid-list-md>
             <v-layout row wrap>
               <v-flex md6 v-for="catalog in catalogs"> -->
+
                 <div class="catalog" v-for="catalog in catalogs">
                   <center>
                     <img v-bind:src="'src/assets/product-img/product.png'" />
                   </center>
-                  <b class="product-price">Rp {{catalog.price}}</b><br>
+                  <b class="product-price">Rp {{catalog.price}}</b>
                   <p class="product-name">{{catalog.name}}</p>
                   <p class="product-seller">{{catalog.seller}}</p>
                 </div>
@@ -291,15 +292,32 @@
   }
   .catalog-list {
     height: 90%;
-    padding: 26px 24px 26px 24px;
+    /* padding: 26px 18px 26px 18px; */
+    /* padding-left: 25px;
+    padding-right: 25px; */
+    justify-content: center;
+    align-content: center;
     overflow-y: auto;
   }
   .catalog {
     height: 264px;
     width: 145px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 12px;
+    margin-right: 12px;
     clear: none;
     display: inline-block;
+  }
+  .catalog .product-price {
+    font-size: 16px;
+  }
+  .catalog .product-name {
+    font-size: 14px;
+  }
+  .catalog .product-seller {
+    font-size: 12px;
+    color: #888888;
+  }
+  .catalog p {
+    margin: 0;
   }
 </style>
